@@ -1,0 +1,29 @@
+.Pokemon-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan a la siguiente línea si no hay suficiente espacio */
+    justify-content: space-around; /* Espaciado uniforme entre las tarjetas */
+}
+
+.Pokemon-card {
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+    width: 200px;
+    margin: 10px;
+    border: 1px solid #9e4c9e;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.Pokemon-card img {
+    width: 100%;
+    height: auto;
+}
+
+.titlecenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-family: 'Courier New', Courier, monospace;
+}
