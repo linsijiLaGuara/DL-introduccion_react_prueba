@@ -1,6 +1,5 @@
 import MyApi from "./componets/myApi/MyApi";
-import Buscar from "./componets/buscador/Buscador";
-import Navbars from "./componets/navbars/navbars"
+import Navbars from "./componets/navbars/navbars";
 import React, { useState } from "react";
 
 const App = () => {
@@ -11,24 +10,18 @@ const App = () => {
   };
 
   return (
-    <div>
-      <header className="header-nav">
-      <Navbars/>
-        
-        
+    <>
+      <header>
+        <Navbars handleInput={handleInput} />
       </header>
+
       <main>
-        <Buscar
-          placeholder="Busca tu Pokemon"
-          handlerInput={handleInput}
-          handlerButton={() => {}}
-        />
+        <MyApi searchTerm={searchTerm} />
       </main>
-      <MyApi searchTerm={searchTerm} />
       <footer>
         <p>© 2024 Tu Compañía</p>
       </footer>
-    </div>
+    </>
   );
 };
 
