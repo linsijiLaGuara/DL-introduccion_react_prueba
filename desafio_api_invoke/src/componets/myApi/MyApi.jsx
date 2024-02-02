@@ -5,9 +5,11 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import "./myApi.css";
 
+
 const MyApi = ({ searchTerm }) => {
   const [infoPokemon, setInfoPokemon] = useState([]);
   const [sorted, setSorted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(""); // Nuevo estado para el mensaje de error
 
   useEffect(() => {
     consultarApi();
@@ -32,6 +34,11 @@ const MyApi = ({ searchTerm }) => {
       }
 
       const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error("No se pudo obtener la información del servidor");
+      }
+
       const dataPokemon = await response.json();
 
       if (searchTerm && dataPokemon.name) {
@@ -42,6 +49,7 @@ const MyApi = ({ searchTerm }) => {
             img: dataPokemon.sprites.front_default,
           },
         ]);
+        setErrorMessage(""); // Limpiar mensaje de error si se encontró el personaje
       } else {
         const resultPokemon = await Promise.all(
           dataPokemon.results.map(async (pokemon) => {
@@ -49,6 +57,11 @@ const MyApi = ({ searchTerm }) => {
             const pokemonResponse = await fetch(
               `https://pokeapi.co/api/v2/pokemon/${id}`
             );
+
+            if (!pokemonResponse.ok) {
+              throw new Error("No se pudo obtener la información del servidor");
+            }
+
             const pokemonData = await pokemonResponse.json();
 
             return {
@@ -64,9 +77,16 @@ const MyApi = ({ searchTerm }) => {
         }
 
         setInfoPokemon(resultPokemon);
+
+        if (resultPokemon.length === 0) {
+          setErrorMessage("Personaje no encontrado");
+        } else {
+          setErrorMessage(""); // Limpiar mensaje de error si se encontraron personajes
+        }
       }
     } catch (error) {
       console.error("Error al consultar la API:", error);
+      setErrorMessage("Error del servicio");
     }
   };
 
@@ -78,17 +98,21 @@ const MyApi = ({ searchTerm }) => {
         </Button>
       </div>
       <div className="Pokemon-container">
-        {infoPokemon.length ? (
-          infoPokemon.map((pokemon, key) => (
-            <div key={key}>
-              <Card className="Pokemon-card">
-                <Card.Img variant="top" src={pokemon.img} alt={pokemon.name} />
-                <Card.Title className="title-center">{pokemon.name}</Card.Title>
-              </Card>
-            </div>
-          ))
+        {errorMessage ? (
+          <h1>{errorMessage}</h1>
         ) : (
-          <h1>No se encontraron resultados</h1>
+          infoPokemon.length ? (
+            infoPokemon.map((pokemon, key) => (
+              <div key={key}>
+                <Card className="Pokemon-card">
+                  <Card.Img variant="top" src={pokemon.img} alt={pokemon.name} />
+                  <Card.Title className="title-center">{pokemon.name}</Card.Title>
+                </Card>
+              </div>
+            ))
+          ) : (
+            <h1>No se encontraron resultados</h1>
+          )
         )}
       </div>
     </>
