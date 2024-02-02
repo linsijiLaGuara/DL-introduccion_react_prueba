@@ -1,19 +1,30 @@
-
-import MyApi from './componets/myApi/MyApi';
+import MyApi from "./componets/myApi/MyApi";
+import Buscar from "./componets/buscador/Buscador";
+import Navbars from "./componets/navbars/navbars"
+import React, { useState } from "react";
 
 const App = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleInput = (value) => {
+    setSearchTerm(value);
+  };
+
   return (
     <div>
-      <header>
-        <h1>Busca tu Pokemon</h1>
+      <header className="header-nav">
+      <Navbars/>
+        
+        
       </header>
       <main>
-        <h3 className="text-buscar">Buscar Pokemon</h3>
-
-        <MyApi/>
-
-
+        <Buscar
+          placeholder="Busca tu Pokemon"
+          handlerInput={handleInput}
+          handlerButton={() => {}}
+        />
       </main>
+      <MyApi searchTerm={searchTerm} />
       <footer>
         <p>© 2024 Tu Compañía</p>
       </footer>

@@ -10,7 +10,7 @@
     height: 250px;
     width: 200px;
     margin: 10px;
-    border: 1px solid #9e4c9e;
+    border: 1px solid #c102f1;
     border-radius: 8px;
     overflow: hidden;
 }
@@ -20,7 +20,7 @@
     height: auto;
 }
 
-.titlecenter {
+.title-center {
     display: flex;
     align-items: center;
     justify-content: center;
