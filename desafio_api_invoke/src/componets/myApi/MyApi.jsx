@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 import "./myApi.css";
 
 const MyApi = ({ searchTerm }) => {
@@ -10,22 +11,14 @@ const MyApi = ({ searchTerm }) => {
 
   useEffect(() => {
     consultarApi();
-
-    // Ordenar solo si la lista no está ordenada
-    if (!sorted) {
-      sortPokemonByName();
-      setSorted(true);
-    }
-  }, [searchTerm, infoPokemon]);
+  }, [searchTerm, sorted]);
 
   const sortPokemonByName = () => {
     const sortedPokemon = [...infoPokemon];
     sortedPokemon.sort((a, b) => a.name.localeCompare(b.name));
-    setInfoPokemon(sortedPokemon);
-  };
 
-  const toggleSorting = () => {
-    setSorted(!sorted);
+    setSorted((prevSorted) => !prevSorted);
+    setInfoPokemon(sorted ? sortedPokemon : [...infoPokemon]);
   };
 
   const consultarApi = async () => {
@@ -42,7 +35,6 @@ const MyApi = ({ searchTerm }) => {
       const dataPokemon = await response.json();
 
       if (searchTerm && dataPokemon.name) {
-        // Si se ingresó un término de búsqueda y se encontró un Pokémon, mostramos solo ese Pokémon
         setInfoPokemon([
           {
             id: dataPokemon.id,
@@ -51,7 +43,6 @@ const MyApi = ({ searchTerm }) => {
           },
         ]);
       } else {
-        // Si no hay término de búsqueda o no se encontró un Pokémon, mostramos todos los Pokémon
         const resultPokemon = await Promise.all(
           dataPokemon.results.map(async (pokemon) => {
             const id = pokemon.url.split("/")[6];
@@ -68,6 +59,10 @@ const MyApi = ({ searchTerm }) => {
           })
         );
 
+        if (sorted) {
+          resultPokemon.sort((a, b) => a.name.localeCompare(b.name));
+        }
+
         setInfoPokemon(resultPokemon);
       }
     } catch (error) {
@@ -78,9 +73,9 @@ const MyApi = ({ searchTerm }) => {
   return (
     <>
       <div>
-        <button onClick={toggleSorting}>
+        <Button className="buton-color" onClick={sortPokemonByName}>
           {sorted ? "Desactivar Orden" : "Activar Orden"}
-        </button>
+        </Button>
       </div>
       <div className="Pokemon-container">
         {infoPokemon.length ? (

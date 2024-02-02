@@ -1,7 +1,9 @@
 .Pokemon-container {
     display: flex;
-    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan a la siguiente línea si no hay suficiente espacio */
-    justify-content: space-around; /* Espaciado uniforme entre las tarjetas */
+    flex-wrap: wrap;
+    /* Permite que las tarjetas se envuelvan a la siguiente línea si no hay suficiente espacio */
+    justify-content: space-around;
+    /* Espaciado uniforme entre las tarjetas */
 }
 
 .Pokemon-card {
@@ -26,4 +28,10 @@
     justify-content: center;
     height: 100%;
     font-family: 'Courier New', Courier, monospace;
+}
+
+.buton-color {
+
+    margin-left: 32px;
+    margin: 30px;
 }
