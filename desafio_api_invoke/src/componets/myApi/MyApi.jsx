@@ -7,10 +7,18 @@ import "./myApi.css";
 const MyApi = ({ searchTerm }) => {
   const [infoPokemon, setInfoPokemon] = useState([]);
 
-  useEffect(() => {
-    consultarApi();
-  }, [searchTerm]);
+  const sortPokemonByName = () => {
+    const sortedPokemon = [...infoPokemon];
+    sortedPokemon.sort((a, b) => a.name.localeCompare(b.name));
+    setInfoPokemon(sortedPokemon);
+  };
 
+  useEffect(() => {
+    sortPokemonByName();
+    consultarApi();
+  }, [infoPokemon, searchTerm]);
+
+  
   const consultarApi = async () => {
     try {
       let url;

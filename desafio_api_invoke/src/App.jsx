@@ -14,7 +14,7 @@ const App = () => {
       <header>
         <Navbars handleInput={handleInput} />
       </header>
-
+      <hr />
       <main>
         <MyApi searchTerm={searchTerm} />
       </main>

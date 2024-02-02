@@ -2,7 +2,7 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import Buscar from "../buscador/Buscador"; // Asegúrate de proporcionar la ruta correcta
+import Buscar from "../buscador/Buscador"; 
 import "./navbars.css";
 
 function Navbars({ handleInput }) {
