@@ -6,6 +6,17 @@ import "./myApi.css";
 
 const MyApi = ({ searchTerm }) => {
   const [infoPokemon, setInfoPokemon] = useState([]);
+  const [sorted, setSorted] = useState(false);
+
+  useEffect(() => {
+    consultarApi();
+
+    // Ordenar solo si la lista no está ordenada
+    if (!sorted) {
+      sortPokemonByName();
+      setSorted(true);
+    }
+  }, [searchTerm, infoPokemon]);
 
   const sortPokemonByName = () => {
     const sortedPokemon = [...infoPokemon];
@@ -13,12 +24,10 @@ const MyApi = ({ searchTerm }) => {
     setInfoPokemon(sortedPokemon);
   };
 
-  useEffect(() => {
-    sortPokemonByName();
-    consultarApi();
-  }, [infoPokemon, searchTerm]);
+  const toggleSorting = () => {
+    setSorted(!sorted);
+  };
 
-  
   const consultarApi = async () => {
     try {
       let url;
@@ -34,11 +43,13 @@ const MyApi = ({ searchTerm }) => {
 
       if (searchTerm && dataPokemon.name) {
         // Si se ingresó un término de búsqueda y se encontró un Pokémon, mostramos solo ese Pokémon
-        setInfoPokemon([{
-          id: dataPokemon.id,
-          name: dataPokemon.name,
-          img: dataPokemon.sprites.front_default,
-        }]);
+        setInfoPokemon([
+          {
+            id: dataPokemon.id,
+            name: dataPokemon.name,
+            img: dataPokemon.sprites.front_default,
+          },
+        ]);
       } else {
         // Si no hay término de búsqueda o no se encontró un Pokémon, mostramos todos los Pokémon
         const resultPokemon = await Promise.all(
@@ -66,6 +77,11 @@ const MyApi = ({ searchTerm }) => {
 
   return (
     <>
+      <div>
+        <button onClick={toggleSorting}>
+          {sorted ? "Desactivar Orden" : "Activar Orden"}
+        </button>
+      </div>
       <div className="Pokemon-container">
         {infoPokemon.length ? (
           infoPokemon.map((pokemon, key) => (

@@ -1,14 +1,25 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useState } from "react";
 
 const Buscar = (props) => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleInputChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleButtonClick = () => {
+    props.handlerInput(searchTerm);
+  };
+
   return (
     <>
       <input
         type="text"
         placeholder={props.placeholder}
-        onChange={(e) => props.handlerInput(e.target.value)}
+        onChange={handleInputChange}
       />
+      <button onClick={handleButtonClick}>Buscar</button>
     </>
   );
 };
