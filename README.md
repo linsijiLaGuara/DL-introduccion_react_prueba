@@ -38,7 +38,7 @@ $ npm run dev
 
 ## link Video
 ***
-A little intro about the installation. 
 ```
-$ Colocar el canal aca
+$¿Cómo llamar a una API con React? #DesafioLatam  https://youtu.be/IQ356i1Qaqw
+```
 ```
