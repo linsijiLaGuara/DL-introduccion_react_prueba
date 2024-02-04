@@ -26,7 +26,7 @@ const MyApi = ({ searchTerm }) => {
   const consultarApi = async () => {
     try {
       let url;
-
+//busqueda 
       if (searchTerm) {
         url = `https://pokeapi.co/api/v2/pokemon/${searchTerm}`;
       } else {

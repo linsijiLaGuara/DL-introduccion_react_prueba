@@ -19,7 +19,7 @@ const App = () => {
         <MyApi searchTerm={searchTerm} />
       </main>
       <footer>
-        <p>© 2024 Tu Compañía</p>
+        <p>© 2024 Linsiji</p>
       </footer>
     </>
   );

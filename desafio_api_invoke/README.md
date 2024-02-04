@@ -32,7 +32,7 @@ A little intro about the installation.
 ```
 $ git clone https://github.com/linsijiLaGuara/DL-introduccion_react_prueba
 
-$ cd ..desafio_api_invoke
+$ cd desafio_api_invoke
 $ npm install
 $ npm run dev
 ```
